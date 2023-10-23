@@ -1,0 +1,267 @@
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="login.html">
+            <!--<div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>-->
+            <div class="sidebar-brand-text mx-3">Adevcom</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="login.html">
+                <i></i>
+                <span>INICIO</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Nav Item - Tables -->
+        <li class="nav-item active">
+            <a class="nav-link" href="usuarios.html">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Buzón de tareas</span></a>
+                <a class="nav-link" href="usuarios.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Causas</span></a>
+                    <a class="nav-link" href="usuarios.html">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Portal</span></a>
+                        <a class="nav-link" href="usuarios.html">
+                            <i class="fas fa-fw fa-table"></i>
+                            <span>Juridiscción</span></a>
+                            <a class="nav-link" href="usuarios.html">
+                                <i class="fas fa-fw fa-table"></i>
+                                <span>Tribunales</span></a>
+                                <a class="nav-link" href="usuarios.html">
+                                    <i class="fas fa-fw fa-table"></i>
+                                    <span>Usuarios</span></a>
+                                    <a class="nav-link" href="usuarios.html">
+                                        <i class="fas fa-fw fa-table"></i>
+                                        <span>OTROS MENUS</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+            <br>
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800" style="text-align: center;">SISTEMA DE ESCRITOS</h1>
+
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h5 class="m-0 font-weight-bold text-primary">Bandeja de escritos</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="usuarios" width="100%" cellspacing="0">
+                            </table>
+                        </div>
+                    
+                        <!-- Botones con margen inferior reducido -->
+                        <div class="btn-group mr-2 mb-2" data-toggle="buttons">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#escritosPendientesCollapse" aria-expanded="true" aria-controls="escritosPendientesCollapse">
+                                Escritos pendientes <span class="badge badge-light">{{ escritosPendientesCount }}</span>
+                            </button>
+                        </div>
+                        
+                    
+                        <div class="btn-group mr-2 mb-2" data-toggle="buttons">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#escritosRelacionadosCollapse" aria-expanded="false" aria-controls="escritosRelacionadosCollapse">
+                                Escritos recepcionados <span class="badge badge-light">5</span>
+                            </button>
+                        </div>
+                    
+                        <div class="btn-group mb-2" data-toggle="buttons">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#escritosSinCausaCollapse" aria-expanded="false" aria-controls="escritosSinCausaCollapse">
+                                Escritos Sin Causa <span class="badge badge-light">8</span>
+                            </button>
+                        </div>
+                        
+<!-- Botón de filtro estilo "switch" dentro de la tarjeta -->
+<div class="filter-container">
+    <h6>Filtro</h6>
+    <label class="switch">
+        <input type="checkbox" id="filtro-switch" class="switch-input" [(ngModel)]="filtroActivo">
+        <span class="slider round"></span>
+    </label>
+    <div class="d-flex justify-content-start align-items-center">
+        <div class="filter-cell" *ngIf="filtroActivo">
+            <label for="fecha-desde">Fecha desde:</label>
+            <input type="date" id="fecha-desde" name="fecha-desde" [(ngModel)]="fechaDesde" [ngModelOptions]="{standalone: true}">
+        </div>
+        
+        <div class="filter-cell" *ngIf="filtroActivo">
+            <label for="fecha-hasta">Fecha hasta:</label>
+            <input type="date" id="fecha-hasta" name="fecha-hasta" [(ngModel)]="fechaHasta" [ngModelOptions]="{standalone: true}">
+        </div>
+
+        <div class="filter-cell" *ngIf="filtroActivo">
+            <label for="numero-escrito">N° Escrito:</label>
+            <input type="text" id="numero-escrito" name="numero-escrito" [(ngModel)]="nroEscritos" [ngModelOptions]="{standalone: true}">
+        </div>
+
+        <style>
+            .filter-cell {
+                margin-right: 2cm; /* Agrega 2cm de margen derecho entre las celdas */
+            }
+        </style>
+
+        <div class="filter-cell" *ngIf="filtroActivo">
+            <label for="juridisprudencia">Juridiscción:</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Seleccionar
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <!-- Opciones del menú desplegable -->
+                    <a class="dropdown-item" href="#">Opción 1</a>
+                    <a class="dropdown-item" href="#">Opción 2</a>
+                    <a class="dropdown-item" href="#">Opción 3</a>
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary mr-4" (click)="exportar()" *ngIf="filtroActivo">Exportar</button>
+        <button class="btn btn-secondary mr-4" (click)="limpiarCampos()" *ngIf="filtroActivo">Limpiar</button>
+        <button class="btn btn-primary" (click)="buscarEscritos()" *ngIf="filtroActivo">Buscar</button>
+    </div>
+</div><br><br>
+<button class="btn btn-success mr-4 float-right">Recepcionar</button><br>
+
+
+                 
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="usuarios" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <td>
+                                        <!-- Checkbox individual -->
+                                        
+                                      </td>
+                                    <td>id</td>
+                                    <th>N° Escrito</th>
+                                    <th>Información del escrito</th>
+                                    <th>Asunto</th>
+                                    <th>Fecha Ingreso</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let escrito of filteredEscritos">
+                                        <td>
+                                            <!-- Checkbox individual -->
+                                            <input type="checkbox" [value]="escrito.selected" class="large-checkbox" />
+                                          </td>
+                                      <td>{{ escrito.id }}</td>
+                                      <td>{{ escrito.nroEscritos }}</td>
+                                      <!-- Dentro de la cuarta columna -->
+                                        <td>
+                                            <div>Tipo: {{ escrito.tipo.nomTipo }}</div>
+                                            <div>Servicio: {{ escrito.servicio.nomServicio }}</div>
+                                            <div>Estado: {{ escrito.estado.nomEstados }}</div>
+                                            <div>Jurisdiccion: {{ escrito.jurisdiccion }}</div>
+                                            <div>Tribunales: {{ escrito.tribunal.nomTribunales }}</div>
+                                        </td>
+
+                                      <td>{{ escrito.asunto }}</td>
+                                      <td>{{ escrito.createdAt | date: 'dd-MM-yyyy' }}</td>
+                                      <td></td>
+                                      <td>
+                                        <!-- Botón "Ver" -->
+                                        <button class="btn btn-primary" (click)="verEscrito(escrito)">Ver</button>
+                                          
+                                        <!-- Botón "Eliminar" con confirmación del usuario -->
+                                        <button class="btn btn-danger" (click)="confirmarEliminacion(escrito)">Borrar</button>
+                                      </td>
+                                      
+                                      <div *ngIf="detailsVisible" class="popup-container">
+                                        <div class="popup-content">
+                                          <h3>Detalles del Escrito</h3>
+                                          <p><strong>N° de Escrito:</strong> {{ selectedEscrito?.nroEscritos }}</p>
+                                          <p><strong>Asunto:</strong> {{ selectedEscrito?.asunto }}</p>
+                                          <p><strong>Fecha de Creación:</strong> {{ selectedEscrito?.createdAt | date: 'dd-MM-yyyy' }}</p>
+                                          <button class="btn btn-secondary" (click)="cerrarDetalles()">Cerrar Detalles</button>
+                                        </div>
+                                      </div>
+                                    </tr>
+                                  </tbody>
+                            </table>
+                        </div>
+                    </div>
+        
+                </div>
+           
+            </div>
+            <!-- /.container-fluid -->
+        
+
+        
+        <!-- End of Main Content -->
+    
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Adevcom 2023</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    
+    <!-- End of Content Wrapper -->
+
+
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
